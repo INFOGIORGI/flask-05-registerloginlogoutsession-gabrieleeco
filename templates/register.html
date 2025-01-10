@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+
+{%block navbar%}
+<a href="{{url_for('login')}}">Login</a>
+{%endblock%}
+
+{%block contenutoPagina%}
+<form action="">
+    <input type="text" placeholder="Nome">
+    <input type="text" placeholder="Cognome">
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <input type="password" placeholder="Conferma Password">
+    <a href="{{url_for('home')}}">Register</button>
+
+</form>
+{%endblock%}
