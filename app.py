@@ -13,4 +13,8 @@ def register():
 def login():
     return render_template("login.html", titolo="Login")
 
+@app.route("/session")
+def session():
+    return render_template("session.html", titolo="Session")
+
 app.run(debug=True)
