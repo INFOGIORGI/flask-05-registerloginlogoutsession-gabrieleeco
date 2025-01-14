@@ -31,7 +31,27 @@ def register():
             cursor.close()
             return redirect(url_for('home'))
         else:
-            
+            if nome == None:
+               return render_template("errore.html", titolo = "Errore", errore = "Compilare campo nome")
+            elif cognome == None:
+               return render_template("errore.html", titolo = "Errore", errore = "Compilare campo cognome")
+            elif username == None:
+               return render_template("errore.html", titolo = "Errore", errore = "Compilare campo username")
+            elif password == None:
+              return render_template("errore.html", titolo = "Errore", errore = "Compilare campo password")
+            elif confermaPassword == None:
+                return render_template("errore.html", titolo = "Errore", errore = "Compilare campo conferma password")
+            elif password != confermaPassword:
+              return render_template("errore.html", titolo = "errore", errore = "le password devono corrispondere")
+            else:
+                cursor = mysql.connection.cursor()
+                query = "SELECT * FROM users WHERE username = %s"
+                cursor.execute(query, (username,))
+                tmp = cursor.fetchall()
+                if(tmp == None):
+                   return render_template("errore.html", titolo = "Errore", errore = "Username già esistente")
+                else:
+                    return render_template("errore.html", titolo = "Errore", errore = "generico")
 
 @app.route("/login")
 def login():
