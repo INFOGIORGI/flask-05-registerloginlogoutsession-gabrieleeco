@@ -31,7 +31,7 @@ def register():
             cursor.close()
             return redirect(url_for('home'))
         else:
-            if nome == None:
+            if str(nome) is None:
                return render_template("errore.html", titolo = "Errore", errore = "Compilare campo nome")
             elif cognome == None:
                return render_template("errore.html", titolo = "Errore", errore = "Compilare campo cognome")
