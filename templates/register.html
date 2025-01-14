@@ -5,13 +5,13 @@
 {%endblock%}
 
 {%block contenutoPagina%}
-<form action="">
-    <input type="text" placeholder="Nome">
-    <input type="text" placeholder="Cognome">
-    <input type="text" placeholder="Username">
-    <input type="password" placeholder="Password">
-    <input type="password" placeholder="Conferma Password">
-    <a href="{{url_for('home')}}">Register</a>
+<form action="/register/" method="POST">
+    <input type="text" placeholder="Nome" name="nome">
+    <input type="text" placeholder="Cognome" name="cognome">
+    <input type="text" placeholder="Username" name="username">
+    <input type="password" placeholder="Password" name="password">
+    <input type="password" placeholder="Conferma Password" name="confermaPassword">
+    <input type="submit" value="Registrati">
 
 </form>
 {%endblock%}
