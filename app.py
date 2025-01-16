@@ -17,41 +17,28 @@ def home():
 def register():
     if request.method == "GET":
         return render_template("register.html", titolo="Registrati")
+    
+    nome = request.form.get("nome", "Stringa Vuota")
+    cognome = request.form.get("cognome", "Stringa Vuota")
+    username = request.form.get("username", "Stringa Vuota")
+    password = request.form.get("password", "Stringa Vuota")
+    confermaPassword = request.form.get("confermaPassword", "Stringa Vuota")
+    cursor = mysql.connection.cursor()
+    query = "SELECT * FROM users WHERE username = %s"
+    cursor.execute(query, (username))
+    tmp = cursor.fetchall()
+    cursor.close()
+    if tmp:
+        return render_template("errore.html", titolo = "Errore", errore = "username già esistente")
+    if(nome == "Stringa Vuota" or cognome == "Stringa Vuota" or username == "Stringa Vuota" or password == "Stringa Vuota" or password != confermaPassword):
+        return render_template("errore.html", titolo = "Errore")
     else:
-        nome = request.form.get("nome")
-        cognome = request.form.get("cognome")
-        username = request.form.get("username")
-        password = request.form.get("password")
-        confermaPassword = request.form.get("confermaPassword")
-        if(nome != None & cognome != None & username != None & password != None & password == confermaPassword):
-            cursor = mysql.connection.cursor()
-            query = "INSERT INTO users VALUES(%s, %s, %s, %s)"
-            cursor.execute(query, (username, password, nome, cognome))
-            mysql.connection.commit()
-            cursor.close()
-            return redirect(url_for('home'))
-        else:
-            if str(nome) is None:
-               return render_template("errore.html", titolo = "Errore", errore = "Compilare campo nome")
-            elif cognome == None:
-               return render_template("errore.html", titolo = "Errore", errore = "Compilare campo cognome")
-            elif username == None:
-               return render_template("errore.html", titolo = "Errore", errore = "Compilare campo username")
-            elif password == None:
-              return render_template("errore.html", titolo = "Errore", errore = "Compilare campo password")
-            elif confermaPassword == None:
-                return render_template("errore.html", titolo = "Errore", errore = "Compilare campo conferma password")
-            elif password != confermaPassword:
-              return render_template("errore.html", titolo = "errore", errore = "le password devono corrispondere")
-            else:
-                cursor = mysql.connection.cursor()
-                query = "SELECT * FROM users WHERE username = %s"
-                cursor.execute(query, (username,))
-                tmp = cursor.fetchall()
-                if(tmp == None):
-                   return render_template("errore.html", titolo = "Errore", errore = "Username già esistente")
-                else:
-                    return render_template("errore.html", titolo = "Errore", errore = "generico")
+        cursor = mysql.connection.cursor()
+        query = "INSERT INTO users VALUES(%s, %s, %s, %s)"
+        cursor.execute(query, (username, password, nome, cognome))
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for('home'))
 
 @app.route("/login")
 def login():

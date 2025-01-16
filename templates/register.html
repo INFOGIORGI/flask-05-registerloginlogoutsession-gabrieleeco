@@ -6,11 +6,21 @@
 
 {%block contenutoPagina%}
 <form action="/register/" method="POST">
-    <input type="text" placeholder="Nome" name="nome">
-    <input type="text" placeholder="Cognome" name="cognome">
-    <input type="text" placeholder="Username" name="username">
-    <input type="password" placeholder="Password" name="password">
-    <input type="password" placeholder="Conferma Password" name="confermaPassword">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome">
+    <br><br>
+    <label for="cognome">Cognome</label>
+    <input type="text" id="cognome" name="cognome">
+    <br><br>
+    <label for="usr">Username</label>
+    <input type="text" id="usr" name="username">
+    <br><br>
+    <label for="pasw">Password</label>
+    <input type="password" id="pasw" name="password">
+    <br><br>
+    <label for="confPasw">Conferma Password</label>
+    <input type="password" id="confPasw" name="confermaPassword">
+    <br><br>
     <input type="submit" value="Registrati">
 
 </form>
