@@ -5,5 +5,11 @@
 {%endblock%}
 
 {%block contenutoPagina%}
-<h1>Sei entrato</h1>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <h1>{{message}}</h1>
+        {%endfor%}
+    {% endif %}
+{% endwith %}
 {%endblock%}
