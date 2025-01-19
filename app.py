@@ -58,11 +58,18 @@ def login():
     tmp = cursor.fetchall()
     cursor.close()
 
+    cursor = mysql.connection.cursor()
+    query = "SELECT password FROM users WHERE username = %s"
+    cursor.execute(query, (username, ))
+    hashed_password = cursor.fetchall()
+    cursor.close()
+
     if len(tmp)==0:
         flash("Username non esistente")
         return redirect(url_for('login'))
     
-    if check_password_hash(generate_password_hash(password), password):
+
+    if check_password_hash(hashed_password, password):
         flash("Benvenuto" + str(username))
         return redirect(url_for('session'))
     
